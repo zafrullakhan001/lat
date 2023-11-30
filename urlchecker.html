@@ -117,14 +117,15 @@
             /* White font color */
             padding: 10px;
             border-radius: 10px;
-            display: flex;
             flex-wrap: wrap;
             justify-content: space-evenly;
+            display: flex;
         }
 
         .http-code-count {
-            margin: 5px;
-            padding: 5px;
+            margin-top: 10px;
+            /* margin: 5px; */
+            padding: 10px;
             background-color: #0a0a0a;
             /* Yellow background color (example color, you can adjust as needed) */
             color: #ffffff;
@@ -135,6 +136,11 @@
         .http-code-count:not(:last-child) {
             margin-right: 5px;
         }
+
+        /* .container {
+            display: flex;            
+            justify-content: space-between;
+        } */
 
         @media (max-width: 600px) {
             textarea {
@@ -365,17 +371,30 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
     <button onclick="checkLatency()">Check URLs</button>
     <button onclick="exportTableToCsv()">Export as CSV</button>
 
-    <div class="counters">
-        <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
-        <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
-        <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
-    </div>
+    <table id="csstable" border="0" >
+        <tr>
+            <td>
+                <div class="counters">
+                    <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
+                    <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
+                    <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
+                </div>
+            </td>
+            <td>
+                <div class="unique-counter">
+                    Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
+                </div>
+            </td>
+            <td>
+                <div class="http-code-counts" id="httpCodeCountsContainer"></div>
+            </td>
+        </tr>
+    </table>
 
-    <div class="unique-counter">
-        Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
-    </div>
 
-    <div class="http-code-counts" id="httpCodeCountsContainer"></div>
+
+
+
 
     <div id="results"></div>
 
@@ -556,6 +575,10 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
                             } else if (httpCode === 404) {
                                 /* cell.style.backgroundColor = '#FFD700'; */
                                 cell.style.backgroundColor = '#c77777'
+                            }
+
+                            if (!isUrl) {
+                                cell.innerHTML = data;
                             }
                         };
 
