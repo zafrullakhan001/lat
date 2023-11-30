@@ -137,6 +137,10 @@
             margin-right: 5px;
         }
 
+        .csstable {
+            padding: 0px;
+        }
+
         /* .container {
             display: flex;            
             justify-content: space-between;
@@ -363,25 +367,16 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
     <button onclick="checkLatency()">Check URLs</button>
 
 
-    <table id="csstable" border="0">
-        <tr>
-            <td>
-                <div class="counters">
-                    <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
-                    <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
-                    <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
-                </div>
-            </td>
-            <td>
-                <div class="unique-counter">
-                    Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
-                </div>
-            </td>
-            <td>
-                <div class="http-code-counts" id="httpCodeCountsContainer"></div>
-            </td>
-        </tr>
-    </table>
+    <div class="counters">
+        <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
+        <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
+        <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
+    </div>
+    <div class="unique-counter">
+        Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
+    </div>
+    <div class="http-code-counts" id="httpCodeCountsContainer"></div>
+
     <br>
     <button onclick="exportTableToCsv()">Export as CSV</button>
 
