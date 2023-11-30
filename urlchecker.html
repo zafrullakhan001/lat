@@ -11,6 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f0f0f0;
+            zoom: 80%;
         }
 
         .container {
@@ -150,6 +151,12 @@
             textarea {
                 height: 120px;
             }
+        }
+
+
+        .export-button-container {
+            text-align: right;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -378,12 +385,9 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
     <div class="http-code-counts" id="httpCodeCountsContainer"></div>
 
     <br>
-    <button onclick="exportTableToCsv()">Export as CSV</button>
-
-
-
-
-
+    <div class="export-button-container">
+        <button onclick="exportTableToCsv()">Export as CSV</button>
+    </div>
 
 
     <div id="results"></div>
