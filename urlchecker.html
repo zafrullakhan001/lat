@@ -148,7 +148,7 @@
     <hr>
     <h1 class="heading">Application URL checker</h1>
     <h3 class="subheading">Version 1.0</h3>
-    
+
     <hr>
     <br>
     <label for="corsUrlInput">CORS URL:
@@ -342,7 +342,9 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
 
                     <p class=MsoNormal>5) PS C:\xampp\htdocs\urlchecker&gt; <b>node cors-server.js</b></p>
 
-                    <p class=MsoNormal> CORS Anywhere server is running on http://0.0.0.0:8080</p>
+                    <p class=MsoNormal> CORS Anywhere server is running on http://0.0.0.0:8080/</p>
+
+                    <p class=MsoNormal> make sure you have trailing '/' in CORS url </p>
 
                 </div>
 
@@ -407,8 +409,8 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
         }
 
 
-        function downloadCsv(data, filename) {
-            const csvContent = "data:text/csv;charset=utf-8," + data.map(row => row.join(",")).join("\n");
+        function downloadCsv(data, filename, separator = '|') {
+            const csvContent = "data:text/csv;charset=utf-8," + data.map(row => row.join(separator)).join("\n");
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
@@ -552,9 +554,43 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
                             if (isError) {
                                 cell.style.backgroundColor = '#FFCCCC';
                             } else if (httpCode === 404) {
-                                cell.style.backgroundColor = '#FFD700';
+                                /* cell.style.backgroundColor = '#FFD700'; */
+                                cell.style.backgroundColor = '#c77777'
                             }
                         };
+
+                        /* const addCell = (data, isUrl = false, isError = false) => {
+                            const cell = bodyRow.insertCell();
+                            cell.style.border = '1px solid #dddddd';
+                            cell.style.textAlign = 'left';
+                            cell.style.padding = '8px';
+
+                            if (isUrl) {
+                                const link = document.createElement('a');
+                                link.href = data;
+                                link.target = '_blank';
+                                link.textContent = data;
+                                cell.appendChild(link);
+                            } else {
+                                cell.textContent = data;
+                            }
+
+                            if (isError) {
+                                cell.style.backgroundColor = '#FFCCCC';
+                            } else if (!isUrl && isError) {
+                                // If it's an error and not a URL, set background color
+                                cell.style.backgroundColor = '#FFCCCC';
+                            } else if (!isUrl && data === 404) {
+                                // If it's not a URL and the HTTP code is 404, set background color
+                                cell.style.backgroundColor = '#FFD700';
+                            }
+
+                            // Remove the hyperlink for HTTP code column
+                            if (!isUrl && !isError) {
+                                cell.innerHTML = data;
+                            }
+                        }; */
+
 
                         const addDescriptionCell = () => {
                             const descriptionCell = bodyRow.insertCell();
