@@ -12,6 +12,7 @@
             margin: 10px;
             padding: 0;
             transition: margin-left 0.5s; /* Transition effect for the content when the menu is hidden/unhidden */
+            zoom: 100%;
         }
 
         .topmargin
@@ -36,7 +37,7 @@
             width: 200px; /* Initial width of the menu */
             /* margin-top: 20px; Added margin-top */
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 17px;
             width: 230px;
             
             
@@ -47,7 +48,7 @@
             align-items: center;
             padding: 10px;
             text-decoration: none;
-            color: white;
+            color: rgb(37, 34, 34);
             font-weight: bold;
             border-radius: 5px;
             transition: background-color 0.3s;
@@ -95,7 +96,7 @@
 
         h1,
         h3 {
-            color: #2196F3;
+            color: #03070a;
             text-align: center;
         }
 
@@ -151,14 +152,20 @@
         }
 
         .counters {
-            margin-top: 10px;
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .counter {
+            flex: 1;
+            text-align: center;
             font-weight: bold;
-            background-color: #2196F3;
-            color: white;
+            background-color: rgb(110, 128, 209);
+            color: rgb(7, 7, 7);
             border-radius: 10px;
             padding: 10px;
+            margin-right: 10px; /* Optional: Add margin between counters */
         }
 
         .heading,
@@ -172,7 +179,7 @@
             margin-top: 10px;
             text-align: center;
             font-weight: bold;
-            background-color: #FFD700;
+            background-color: #ad9f50;
             color: #333;
             padding: 10px;
             border-radius: 10px;
@@ -182,9 +189,9 @@
             margin-top: 10px;
             text-align: center;
             font-weight: bold;
-            background-color: #808080;
+            background-color: #9ccf8f;
             /* Gray background color */
-            color: #ffffff;
+            color: #0f0e0e;
             /* White font color */
             padding: 10px;
             border-radius: 10px;
@@ -249,7 +256,7 @@
     <div class="content">
         <!-- Your existing content goes here -->
         <hr>
-        <h1 class="heading">Application URL checker</h1>
+        <h1 class="heading">Application URL Checker</h1>
         <h3 class="subheading">Version 1.0</h3>
 
 
@@ -473,14 +480,22 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
         <button onclick="toggleMenu()">Toggle Menu</button> 
 -->
 
-        <div class="counters">
+<!-- 
             <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
             <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
             <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
-        </div>
-        <div class="unique-counter">
+        -->
+
+        <div class="counters">
+        <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
+        <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
+        <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
+        <div class="counter"> Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span></div>
+    </div>
+
+    <!--  <div class="unique-counter">
             Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
-        </div>
+        </div> -->
         <div class="http-code-counts" id="httpCodeCountsContainer"></div>
 
         <br>
@@ -714,7 +729,7 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
                     csvData.push(rowData);
                 });
 
-                downloadCsv(csvData, "url_latency_results.csv");
+                downloadCsv(csvData, "url_checker_results.csv");
             }
 
             function checkLatency() {
