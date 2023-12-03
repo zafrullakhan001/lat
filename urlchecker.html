@@ -7,18 +7,24 @@
     <title>Application URL Checker</title>
 
     <style>
+        #corsUrlInput {
+            font-weight: bold;
+            color: #800080;
+        }
+
         body {
             display: flex;
             margin: 10px;
             padding: 0;
-            transition: margin-left 0.5s; /* Transition effect for the content when the menu is hidden/unhidden */
+            transition: margin-left 0.5s;
+            /* Transition effect for the content when the menu is hidden/unhidden */
             zoom: 100%;
         }
 
-        .topmargin
-        {
+        .topmargin {
             padding-top: 10px 20px 0 0
         }
+
         .menu {
             margin: 0px;
             height: 100vh;
@@ -32,15 +38,17 @@
             justify-content: left;
             align-items: left;
             border-right: 12px solid rgb(43, 6, 6);
-            transition: width 0.5s; /* Transition effect for hiding/unhiding the menu */
+            transition: width 0.5s;
+            /* Transition effect for hiding/unhiding the menu */
             overflow: hidden;
-            width: 200px; /* Initial width of the menu */
+            width: 200px;
+            /* Initial width of the menu */
             /* margin-top: 20px; Added margin-top */
             border-radius: 10px;
             font-size: 17px;
             width: 230px;
-            
-            
+
+
         }
 
         .menu a {
@@ -52,7 +60,8 @@
             font-weight: bold;
             border-radius: 5px;
             transition: background-color 0.3s;
-            margin-top: 11px; /* Adjusted margin-top */
+            margin-top: 11px;
+            /* Adjusted margin-top */
         }
 
         .menu a:hover {
@@ -71,7 +80,8 @@
             flex: 1;
             padding: 20px;
             background-color: #f0f0f0;
-            margin-left: 230px; /* Adjusted margin to leave space for the menu */
+            margin-left: 230px;
+            /* Adjusted margin to leave space for the menu */
             border-radius: 10px;
         }
 
@@ -82,7 +92,8 @@
 
         /* Add a class to adjust content margin when the menu is hidden */
         .menu-hidden .content {
-            margin-left: 10px; /* Adjusted margin to leave space for the menu */
+            margin-left: 10px;
+            /* Adjusted margin to leave space for the menu */
         }
 
         .container {
@@ -161,11 +172,14 @@
             flex: 1;
             text-align: center;
             font-weight: bold;
-            background-color: rgb(110, 128, 209);
+            background-color: rgb(224, 185, 185);
             color: rgb(7, 7, 7);
             border-radius: 10px;
             padding: 10px;
-            margin-right: 10px; /* Optional: Add margin between counters */
+            margin-right: 10px;
+            /* Optional: Add margin between counters */
+            border-color: #0a0a0a;
+            border-width: 2px;
         }
 
         .heading,
@@ -235,24 +249,22 @@
             text-align: right;
             margin-top: 10px;
         }
-
-
     </style>
 </head>
 
 <body>
 
     <div class="topmargin" id="tmargin">
-    <div class="menu" id="menu">
-        <a href="#" onclick="checkLatency()"><span class="icon">🌐</span>Check URLs</a>
-        <a href="#" onclick="syncTime()"><span class="icon">🔄</span>Sync Time</a>
-        <a href="#" onclick="recomputeTotalTime()"><span class="icon">🔄</span>Recompute Total Time</a>
-        <a href="#" onclick="convertToSeconds()"><span class="icon">⏱️</span>Convert to Seconds</a>
-        <!-- <a href="#" onclick="updateTimeMetrics()"><span class="icon">🔄</span>Update Time Metrics</a> -->
-        <a href="#" onclick="exportTableToCsv()"><span class="icon">📄</span>Export as CSV</a>
-        <!-- <button onclick="toggleMenu()">Toggle Menu</button> -->
+        <div class="menu" id="menu">
+            <a href="#" onclick="checkLatency()"><span class="icon">🌐</span>Check URLs</a>
+            <a href="#" onclick="syncTime()"><span class="icon">🔄</span>Sync Time</a>
+            <a href="#" onclick="recomputeTotalTime()"><span class="icon">🔄</span>Recompute Total Time</a>
+            <a href="#" onclick="convertToSeconds()"><span class="icon">⏱️</span>Convert to Seconds</a>
+            <!-- <a href="#" onclick="updateTimeMetrics()"><span class="icon">🔄</span>Update Time Metrics</a> -->
+            <a href="#" onclick="exportTableToCsv()"><span class="icon">📄</span>Export as CSV</a>
+            <!-- <button onclick="toggleMenu()">Toggle Menu</button> -->
+        </div>
     </div>
-</div>
     <div class="content">
         <!-- Your existing content goes here -->
         <hr>
@@ -266,206 +278,6 @@
             <a href="javascript:void(0);" id="helpLink">Help</a>
         </label>
         <input type="text" id="corsUrlInput" placeholder="Enter CORS URL" value="http://localhost:8080/">
-
-
-
-        <div id="helpContent" style="display: none;">
-            <h2>CORS URL</h2>
-            <p>CORS, which stands for Cross-Origin Resource Sharing, is a security feature implemented by web browsers
-                to
-                control and restrict web page scripts from making requests to a different domain than the one that
-                served
-                the web page. This restriction is known as the same-origin policy, and it is a critical security measure
-                to
-                prevent malicious websites from making unauthorized requests to another domain on behalf of a user.</p>
-            <p>
-
-
-                <html>
-
-                <head>
-                    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-                    <meta name=Generator content="Microsoft Word 15 (filtered)">
-                    <style>
-                        <!--
-                        /* Font Definitions */
-
-
-                        /* Style Definitions */
-                        p.MsoNormal,
-                        li.MsoNormal,
-                        div.MsoNormal {
-                            margin-top: 0in;
-                            margin-right: 0in;
-                            margin-bottom: 8.0pt;
-                            margin-left: 0in;
-                            line-height: 107%;
-                            font-size: 11.0pt;
-                            font-family: "Calibri", sans-serif;
-                        }
-
-                        .MsoChpDefault {
-                            font-family: "Calibri", sans-serif;
-                        }
-
-                        .MsoPapDefault {
-                            margin-bottom: 8.0pt;
-                            line-height: 107%;
-                        }
-
-                        @page WordSection1 {
-                            size: 8.5in 11.0in;
-                            margin: 1.0in 1.0in 1.0in 1.0in;
-                        }
-
-                        div.WordSection1 {
-                            page: WordSection1;
-                        }
-                        -->
-                    </style>
-
-                </head>
-
-                <body lang=EN-US style='word-wrap:break-word'>
-
-                    <div class=WordSection1>
-
-                        <p class=MsoNormal><b>However, “URL checker” tool needs to over come this
-                                browser restriction to check URLs from various domains, so we need to use CORS-proxy
-                                for this. </b></p>
-
-                        <p class=MsoNormal><b>Please go-ahead and install this on your non-prod server following
-                                the instructions below.</b></p>
-
-                        <p class=MsoNormal>&nbsp;</p>
-
-                        <p class=MsoNormal>1) Install node.js from <b>https://nodejs.org/en/</b></p>
-
-                        <p class=MsoNormal>2) PS C:\xampp\htdocs\urlchecker&gt; <b>npm init -y</b></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>Wrote
-                                to C:\xampp\htdocs\urlchecker\package.json:</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>{</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;name&quot;: &quot;urlchecker&quot;,</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;version&quot;: &quot;1.0.0&quot;,</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;description&quot;: &quot;&quot;,</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;main&quot;: &quot;index.js&quot;,</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;scripts&quot;: {</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp;
-                                exit 1&quot;</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                },</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;keywords&quot;: [],</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;author&quot;: &quot;&quot;,</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                                &quot;license&quot;: &quot;ISC&quot;</span></p>
-
-                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
-margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</span></p>
-
-                        <p class=MsoNormal>3) Install cors-anywhere using npm</p>
-
-                        <p class=MsoNormal>PS C:\xampp\htdocs\urlchecker&gt; <b>npm install
-                                cors-anywhere</b></p>
-
-                        <p class=MsoNormal>added 5 packages, and audited 6 packages in 2s</p>
-
-                        <p class=MsoNormal>Some issues need review, and may require choosing</p>
-
-                        <p class=MsoNormal>a different dependency.</p>
-
-                        <p class=MsoNormal>&nbsp;</p>
-
-                        <p class=MsoNormal>4) create file: cors-server.js </p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
-                                host = '0.0.0.0';</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
-                                port = 8080;</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span
-                                style='font-family:"Courier New"'>&nbsp;</span>
-                        </p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
-                                cors_proxy = require('cors-anywhere');</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span
-                                style='font-family:"Courier New"'>cors_proxy.createServer({</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                                httpProxyOptions: {</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                                secure: false,</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                                },</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                                originWhitelist: [], // Allow all origins</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span
-                                style='font-family:"Courier New"'>}).listen(port,
-                                host, function () {</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                                console.log(`CORS Anywhere server is running on http://${host}:${port}`);</span></p>
-
-                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>});</span>
-                        </p>
-
-                        <p class=MsoNormal>&nbsp;</p>
-
-                        <p class=MsoNormal>5) PS C:\xampp\htdocs\urlchecker&gt; <b>node cors-server.js</b></p>
-
-                        <p class=MsoNormal> CORS Anywhere server is running on http://0.0.0.0:8080/</p>
-
-                        <p class=MsoNormal> make sure you have trailing '/' in CORS url </p>
-
-                    </div>
-
-                </body>
-
-                </html>
-
-
-
-            </p>
-        </div>
-
         <label for="urlsTextArea">Enter URLs (one per line):</label>
         <textarea id="urlsTextArea" rows="5" cols="50">
         https://www.google.com
@@ -480,20 +292,20 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
         <button onclick="toggleMenu()">Toggle Menu</button> 
 -->
 
-<!-- 
+        <!-- 
             <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
             <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
             <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
         -->
 
         <div class="counters">
-        <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
-        <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
-        <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
-        <div class="counter"> Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span></div>
-    </div>
+            <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
+            <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
+            <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
+            <div class="counter"> Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span></div>
+        </div>
 
-    <!--  <div class="unique-counter">
+        <!--  <div class="unique-counter">
             Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
         </div> -->
         <div class="http-code-counts" id="httpCodeCountsContainer"></div>
@@ -937,6 +749,205 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
             }
 
         </script>
+
+        <div id="helpContent" style="display: none;">
+            <bold>
+                <h2>CORS URL</h2>
+            </bold>
+            <p>CORS, which stands for Cross-Origin Resource Sharing, is a security feature implemented by web browsers
+                to
+                control and restrict web page scripts from making requests to a different domain than the one that
+                served
+                the web page. This restriction is known as the same-origin policy, and it is a critical security measure
+                to
+                prevent malicious websites from making unauthorized requests to another domain on behalf of a user.</p>
+            <p>
+
+
+                <html>
+
+                <head>
+                    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+                    <meta name=Generator content="Microsoft Word 15 (filtered)">
+                    <style>
+                        <!--
+                        /* Font Definitions */
+
+
+                        /* Style Definitions */
+                        p.MsoNormal,
+                        li.MsoNormal,
+                        div.MsoNormal {
+                            margin-top: 0in;
+                            margin-right: 0in;
+                            margin-bottom: 8.0pt;
+                            margin-left: 0in;
+                            line-height: 107%;
+                            font-size: 11.0pt;
+                            font-family: "Calibri", sans-serif;
+                        }
+
+                        .MsoChpDefault {
+                            font-family: "Calibri", sans-serif;
+                        }
+
+                        .MsoPapDefault {
+                            margin-bottom: 8.0pt;
+                            line-height: 107%;
+                        }
+
+                        @page WordSection1 {
+                            size: 8.5in 11.0in;
+                            margin: 1.0in 1.0in 1.0in 1.0in;
+                        }
+
+                        div.WordSection1 {
+                            page: WordSection1;
+                        }
+                        -->
+                    </style>
+
+                </head>
+
+                <body lang=EN-US style='word-wrap:break-word'>
+
+                    <div class=WordSection1>
+
+                        <p class=MsoNormal><b>However, “URL checker” tool needs to over come this
+                                browser restriction to check URLs from various domains, so we need to use CORS-proxy
+                                for this. </b></p>
+
+                        <p class=MsoNormal><b>Please go-ahead and install this on your non-prod server following
+                                the instructions below.</b></p>
+
+                        <p class=MsoNormal>&nbsp;</p>
+
+                        <p class=MsoNormal>1) Install node.js from <b>https://nodejs.org/en/</b></p>
+
+                        <p class=MsoNormal>2) PS C:\xampp\htdocs\urlchecker&gt; <b>npm init -y</b></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>Wrote
+                                to C:\xampp\htdocs\urlchecker\package.json:</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>{</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;name&quot;: &quot;urlchecker&quot;,</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;version&quot;: &quot;1.0.0&quot;,</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;description&quot;: &quot;&quot;,</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;main&quot;: &quot;index.js&quot;,</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;scripts&quot;: {</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp;
+                                exit 1&quot;</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                },</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;keywords&quot;: [],</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;author&quot;: &quot;&quot;,</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
+                                &quot;license&quot;: &quot;ISC&quot;</span></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</span></p>
+
+                        <p class=MsoNormal>3) Install cors-anywhere using npm</p>
+
+                        <p class=MsoNormal>PS C:\xampp\htdocs\urlchecker&gt; <b>npm install
+                                cors-anywhere</b></p>
+
+                        <p class=MsoNormal>added 5 packages, and audited 6 packages in 2s</p>
+
+                        <p class=MsoNormal>Some issues need review, and may require choosing</p>
+
+                        <p class=MsoNormal>a different dependency.</p>
+
+                        <p class=MsoNormal>&nbsp;</p>
+
+                        <p class=MsoNormal>4) create file: cors-server.js </p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
+                                host = '0.0.0.0';</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
+                                port = 8080;</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span
+                                style='font-family:"Courier New"'>&nbsp;</span>
+                        </p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
+                                cors_proxy = require('cors-anywhere');</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span
+                                style='font-family:"Courier New"'>cors_proxy.createServer({</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                httpProxyOptions: {</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                secure: false,</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                },</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                originWhitelist: [], // Allow all origins</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span
+                                style='font-family:"Courier New"'>}).listen(port,
+                                host, function () {</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                console.log(`CORS Anywhere server is running on http://${host}:${port}`);</span></p>
+
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>});</span>
+                        </p>
+
+                        <p class=MsoNormal>&nbsp;</p>
+
+                        <p class=MsoNormal>5) PS C:\xampp\htdocs\urlchecker&gt; <b>node cors-server.js</b></p>
+
+                        <p class=MsoNormal> CORS Anywhere server is running on http://0.0.0.0:8080/</p>
+
+                        <p class=MsoNormal> make sure you have trailing '/' in CORS url </p>
+
+                    </div>
+
+                </body>
+
+                </html>
+
+
+
+            </p>
+        </div>
 </body>
 <!-- Add this at the end of your HTML body -->
 <footer>
