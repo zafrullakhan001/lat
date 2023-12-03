@@ -7,11 +7,75 @@
     <title>Application URL Checker</title>
 
     <style>
+        .menu {
+            margin-top: 10px;
+            height: 120vh;
+            /* 100% of the viewport height */
+            background-color: #2196F3;
+            /* Blue background */
+            color: white;
+            /* White text color */
+            padding: 20px;
+            box-sizing: border-box;
+            position: fixed;
+            /* Fixed position to stay on the screen while scrolling */
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+            align-items: left;
+            border-radius: 10px;
+            border-color: #0a0a0a;
+            border-right: 12px solid rgb(73, 12, 12);
+            transition: width 0.5s;
+            /* Transition effect for hiding/unhiding the menu */
+            overflow: hidden;
+            /* width: 300px; */
+            /* Initial width of the menu */
+        }
+
+        .menu a {
+            /* margin-top: 10px; */
+            display: flex;
+            align-items: left;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            /* margin-top: 50px; */
+        }
+
+        .menu a:hover {
+            background-color: #1565C0;
+            /* Darker blue on hover */
+        }
+
+        .menu a:not(:last-child) {
+            border-bottom: 2px solid white;
+            /* White separator line between items */
+        }
+
+        .menu .icon {
+            margin-right: 10px;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            background-color: #f0f0f0;
+            margin-left: 250px;
+            /* Adjusted margin to leave space for the menu */
+        }
+
         body {
+            display: flex;
             font-family: Arial, sans-serif;
             margin: 20px;
             background-color: #f0f0f0;
             zoom: 80%;
+            /* margin: 0;
+            padding: 0; */
         }
 
         .container {
@@ -158,670 +222,713 @@
             text-align: right;
             margin-top: 10px;
         }
+
+        /* Add a class to hide the menu */
+        .menu-hidden .menu {
+            width: 0;
+        }
+
+        /* Add a class to adjust content margin when the menu is hidden */
+        .menu-hidden .content {
+            margin-left: 0;
+        }
     </style>
 </head>
 
 <body>
-    <hr>
-    <h1 class="heading">Application URL checker</h1>
-    <h3 class="subheading">Version 1.0</h3>
 
-    <hr>
-    <br>
-    <label for="corsUrlInput">CORS URL:
-        <a href="javascript:void(0);" id="helpLink">Help</a>
-    </label>
-    <input type="text" id="corsUrlInput" placeholder="Enter CORS URL" value="http://localhost:8080/">
+    <div class="menu">
+        <a href="#" onclick="checkLatency()">1) Check URLs</a>
+        <a href="#" onclick="syncTime()">2) Sync Time</a>
+        <a href="#" onclick="recomputeTotalTime()">3) Recompute Total Time</a>
+        <a href="#" onclick="convertToSeconds()">4) Convert to Seconds</a>
+        <a href="#" onclick="updateTimeMetrics()">5) Update Time Metrics</a>
+        <a href="#" onclick="exportTableToCsv()">6) Export as CSV</a>
+    </div>
 
-
-
-    <div id="helpContent" style="display: none;">
-        <h2>CORS URL</h2>
-        <p>CORS, which stands for Cross-Origin Resource Sharing, is a security feature implemented by web browsers to
-            control and restrict web page scripts from making requests to a different domain than the one that served
-            the web page. This restriction is known as the same-origin policy, and it is a critical security measure to
-            prevent malicious websites from making unauthorized requests to another domain on behalf of a user.</p>
-        <p>
+    <div class="content">
+        <!-- Your existing content goes here -->
+        <hr>
+        <h1 class="heading">Application URL checker</h1>
+        <h3 class="subheading">Version 1.0</h3>
 
 
-            <html>
-
-            <head>
-                <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-                <meta name=Generator content="Microsoft Word 15 (filtered)">
-                <style>
-                    <!--
-                    /* Font Definitions */
+        <hr>
+        <br>
+        <label for="corsUrlInput">CORS URL:
+            <a href="javascript:void(0);" id="helpLink">Help</a>
+        </label>
+        <input type="text" id="corsUrlInput" placeholder="Enter CORS URL" value="http://localhost:8080/">
 
 
-                    /* Style Definitions */
-                    p.MsoNormal,
-                    li.MsoNormal,
-                    div.MsoNormal {
-                        margin-top: 0in;
-                        margin-right: 0in;
-                        margin-bottom: 8.0pt;
-                        margin-left: 0in;
-                        line-height: 107%;
-                        font-size: 11.0pt;
-                        font-family: "Calibri", sans-serif;
-                    }
 
-                    .MsoChpDefault {
-                        font-family: "Calibri", sans-serif;
-                    }
+        <div id="helpContent" style="display: none;">
+            <h2>CORS URL</h2>
+            <p>CORS, which stands for Cross-Origin Resource Sharing, is a security feature implemented by web browsers
+                to
+                control and restrict web page scripts from making requests to a different domain than the one that
+                served
+                the web page. This restriction is known as the same-origin policy, and it is a critical security measure
+                to
+                prevent malicious websites from making unauthorized requests to another domain on behalf of a user.</p>
+            <p>
 
-                    .MsoPapDefault {
-                        margin-bottom: 8.0pt;
-                        line-height: 107%;
-                    }
 
-                    @page WordSection1 {
-                        size: 8.5in 11.0in;
-                        margin: 1.0in 1.0in 1.0in 1.0in;
-                    }
+                <html>
 
-                    div.WordSection1 {
-                        page: WordSection1;
-                    }
-                    -->
-                </style>
+                <head>
+                    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+                    <meta name=Generator content="Microsoft Word 15 (filtered)">
+                    <style>
+                        <!--
+                        /* Font Definitions */
 
-            </head>
 
-            <body lang=EN-US style='word-wrap:break-word'>
+                        /* Style Definitions */
+                        p.MsoNormal,
+                        li.MsoNormal,
+                        div.MsoNormal {
+                            margin-top: 0in;
+                            margin-right: 0in;
+                            margin-bottom: 8.0pt;
+                            margin-left: 0in;
+                            line-height: 107%;
+                            font-size: 11.0pt;
+                            font-family: "Calibri", sans-serif;
+                        }
 
-                <div class=WordSection1>
+                        .MsoChpDefault {
+                            font-family: "Calibri", sans-serif;
+                        }
 
-                    <p class=MsoNormal><b>However, “URL checker” tool needs to over come this
-                            browser restriction to check URLs from various domains, so we need to use CORS-proxy
-                            for this. </b></p>
+                        .MsoPapDefault {
+                            margin-bottom: 8.0pt;
+                            line-height: 107%;
+                        }
 
-                    <p class=MsoNormal><b>Please go-ahead and install this on your non-prod server following
-                            the instructions below.</b></p>
+                        @page WordSection1 {
+                            size: 8.5in 11.0in;
+                            margin: 1.0in 1.0in 1.0in 1.0in;
+                        }
 
-                    <p class=MsoNormal>&nbsp;</p>
+                        div.WordSection1 {
+                            page: WordSection1;
+                        }
+                        -->
+                    </style>
 
-                    <p class=MsoNormal>1) Install node.js from <b>https://nodejs.org/en/</b></p>
+                </head>
 
-                    <p class=MsoNormal>2) PS C:\xampp\htdocs\urlchecker&gt; <b>npm init -y</b></p>
+                <body lang=EN-US style='word-wrap:break-word'>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                    <div class=WordSection1>
+
+                        <p class=MsoNormal><b>However, “URL checker” tool needs to over come this
+                                browser restriction to check URLs from various domains, so we need to use CORS-proxy
+                                for this. </b></p>
+
+                        <p class=MsoNormal><b>Please go-ahead and install this on your non-prod server following
+                                the instructions below.</b></p>
+
+                        <p class=MsoNormal>&nbsp;</p>
+
+                        <p class=MsoNormal>1) Install node.js from <b>https://nodejs.org/en/</b></p>
+
+                        <p class=MsoNormal>2) PS C:\xampp\htdocs\urlchecker&gt; <b>npm init -y</b></p>
+
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>Wrote
-                            to C:\xampp\htdocs\urlchecker\package.json:</span></p>
+                                to C:\xampp\htdocs\urlchecker\package.json:</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>{</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;name&quot;: &quot;urlchecker&quot;,</span></p>
+                                &quot;name&quot;: &quot;urlchecker&quot;,</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;version&quot;: &quot;1.0.0&quot;,</span></p>
+                                &quot;version&quot;: &quot;1.0.0&quot;,</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;description&quot;: &quot;&quot;,</span></p>
+                                &quot;description&quot;: &quot;&quot;,</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;main&quot;: &quot;index.js&quot;,</span></p>
+                                &quot;main&quot;: &quot;index.js&quot;,</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;scripts&quot;: {</span></p>
+                                &quot;scripts&quot;: {</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp;
-                            exit 1&quot;</span></p>
+                                &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp;
+                                exit 1&quot;</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            },</span></p>
+                                },</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;keywords&quot;: [],</span></p>
+                                &quot;keywords&quot;: [],</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;author&quot;: &quot;&quot;,</span></p>
+                                &quot;author&quot;: &quot;&quot;,</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>
-                            &quot;license&quot;: &quot;ISC&quot;</span></p>
+                                &quot;license&quot;: &quot;ISC&quot;</span></p>
 
-                    <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
+                        <p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:0in;
 margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</span></p>
 
-                    <p class=MsoNormal>3) Install cors-anywhere using npm</p>
+                        <p class=MsoNormal>3) Install cors-anywhere using npm</p>
 
-                    <p class=MsoNormal>PS C:\xampp\htdocs\urlchecker&gt; <b>npm install
-                            cors-anywhere</b></p>
+                        <p class=MsoNormal>PS C:\xampp\htdocs\urlchecker&gt; <b>npm install
+                                cors-anywhere</b></p>
 
-                    <p class=MsoNormal>added 5 packages, and audited 6 packages in 2s</p>
+                        <p class=MsoNormal>added 5 packages, and audited 6 packages in 2s</p>
 
-                    <p class=MsoNormal>Some issues need review, and may require choosing</p>
+                        <p class=MsoNormal>Some issues need review, and may require choosing</p>
 
-                    <p class=MsoNormal>a different dependency.</p>
+                        <p class=MsoNormal>a different dependency.</p>
 
-                    <p class=MsoNormal>&nbsp;</p>
+                        <p class=MsoNormal>&nbsp;</p>
 
-                    <p class=MsoNormal>4) create file: cors-server.js </p>
+                        <p class=MsoNormal>4) create file: cors-server.js </p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
-                            host = '0.0.0.0';</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
+                                host = '0.0.0.0';</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
-                            port = 8080;</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
+                                port = 8080;</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>&nbsp;</span>
-                    </p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span
+                                style='font-family:"Courier New"'>&nbsp;</span>
+                        </p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
-                            cors_proxy = require('cors-anywhere');</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>const
+                                cors_proxy = require('cors-anywhere');</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span
-                            style='font-family:"Courier New"'>cors_proxy.createServer({</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span
+                                style='font-family:"Courier New"'>cors_proxy.createServer({</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                            httpProxyOptions: {</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                httpProxyOptions: {</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                            secure: false,</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                secure: false,</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                            },</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                },</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                            originWhitelist: [], // Allow all origins</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                originWhitelist: [], // Allow all origins</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>}).listen(port,
-                            host, function () {</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span
+                                style='font-family:"Courier New"'>}).listen(port,
+                                host, function () {</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
-                            console.log(`CORS Anywhere server is running on http://${host}:${port}`);</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>
+                                console.log(`CORS Anywhere server is running on http://${host}:${port}`);</span></p>
 
-                    <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>});</span></p>
+                        <p class=MsoNormal style='margin-bottom:0in'><span style='font-family:"Courier New"'>});</span>
+                        </p>
 
-                    <p class=MsoNormal>&nbsp;</p>
+                        <p class=MsoNormal>&nbsp;</p>
 
-                    <p class=MsoNormal>5) PS C:\xampp\htdocs\urlchecker&gt; <b>node cors-server.js</b></p>
+                        <p class=MsoNormal>5) PS C:\xampp\htdocs\urlchecker&gt; <b>node cors-server.js</b></p>
 
-                    <p class=MsoNormal> CORS Anywhere server is running on http://0.0.0.0:8080/</p>
+                        <p class=MsoNormal> CORS Anywhere server is running on http://0.0.0.0:8080/</p>
 
-                    <p class=MsoNormal> make sure you have trailing '/' in CORS url </p>
+                        <p class=MsoNormal> make sure you have trailing '/' in CORS url </p>
 
-                </div>
+                    </div>
 
-            </body>
+                </body>
 
-            </html>
+                </html>
 
 
 
-        </p>
-    </div>
+            </p>
+        </div>
 
-    <label for="urlsTextArea">Enter URLs (one per line):</label>
-    <textarea id="urlsTextArea" rows="5" cols="50">
+        <label for="urlsTextArea">Enter URLs (one per line):</label>
+        <textarea id="urlsTextArea" rows="5" cols="50">
         https://www.google.com
     </textarea>
+        <!-- 
+        <button onclick="checkLatency();recomputeTotalTime();recomputeTotalTime();">Check URLs</button>
+        <button onclick="syncTime()">SyncUp Time</button> 
+        <button onclick="recomputeTotalTime()">ReCompute Total Time</button>
+        <button onclick="convertToSeconds()">Show Totaltime in Secs</button> 
+        <button onclick="convertToMilliseconds()">Show Totaltime in Millisecond</button>
+        <button onclick="updateTimeMetrics()">Update Time Metrics</button>
+        <button onclick="toggleMenu()">Toggle Menu</button> 
+-->
 
-    <button onclick="checkLatency();recomputeTotalTime();recomputeTotalTime();">Check URLs</button>
-    <button onclick="syncTime()">SyncUp Time</button> <!-- New Sync Time button -->
-    <button onclick="recomputeTotalTime()">ReCompute Total Time</button> <!-- New Recompute Total Time button -->
-    <button onclick="convertToSeconds()">Show TotalTime in Secs</button> <!-- New Convert to Seconds button -->
-    <button onclick="convertToMilliseconds()">Show TotalTime in Millisecs</button>
-    <!-- <button onclick="updateTimeMetrics()">Update Time Metrics</button> -->
+        <div class="counters">
+            <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
+            <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
+            <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
+        </div>
+        <div class="unique-counter">
+            Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
+        </div>
+        <div class="http-code-counts" id="httpCodeCountsContainer"></div>
+
+        <br>
+        <div class="export-button-container">
+            <button onclick="exportTableToCsv()">Export as CSV</button>
+        </div>
 
 
-    <div class="counters">
-        <div class="counter">Total URLs: <span id="totalCounter">0</span></div>
-        <div class="counter">Completed URLs: <span id="completedCounter">0</span></div>
-        <div class="counter">Remaining URLs: <span id="remainingCounter">0</span></div>
-    </div>
-    <div class="unique-counter">
-        Unique HTTP Codes: <span id="uniqueHttpCodesCounter">0</span>
-    </div>
-    <div class="http-code-counts" id="httpCodeCountsContainer"></div>
+        <div id="results"></div>
 
-    <br>
-    <div class="export-button-container">
-        <button onclick="exportTableToCsv()">Export as CSV</button>
-    </div>
+        <script>
 
-
-    <div id="results"></div>
-
-    <script>
-
-        function updateTimeMetrics() {
-            if (!isUrlsChecked) {
-                alert('Please check URLs for latency first.');
-                return;
+            // Function to toggle the menu visibility
+            function toggleMenu() {
+                const menu = document.getElementById('menu');
+                menu.classList.toggle('menu-hidden');
             }
 
-            const resultsContainer = document.getElementById('results');
-            const tableRows = resultsContainer.querySelectorAll('table tr');
+            function updateTimeMetrics() {
+                if (!isUrlsChecked) {
+                    alert('Please check URLs for latency first.');
+                    return;
+                }
 
-            // Iterate through rows starting from the second row
-            for (let i = 1; i < tableRows.length; i++) {
-                const currentRow = tableRows[i];
+                const resultsContainer = document.getElementById('results');
+                const tableRows = resultsContainer.querySelectorAll('table tr');
 
-                // Assuming start date is in the third cell
-                const startDateCell = currentRow.cells[2];
-                // Assuming end date is in the fourth cell
-                const endDateCell = currentRow.cells[3];
-                // Assuming total time is in the fifth cell
-                const totalTimeCell = currentRow.cells[4];
+                // Iterate through rows starting from the second row
+                for (let i = 1; i < tableRows.length; i++) {
+                    const currentRow = tableRows[i];
 
-                // Check if both start date and end date cells are not empty
-                if (startDateCell && startDateCell.textContent.trim() !== '' && endDateCell && endDateCell.textContent.trim() !== '') {
-                    const startDate = new Date(startDateCell.textContent.trim());
-                    const endDate = new Date(endDateCell.textContent.trim());
+                    // Assuming start date is in the third cell
+                    const startDateCell = currentRow.cells[2];
+                    // Assuming end date is in the fourth cell
+                    const endDateCell = currentRow.cells[3];
+                    // Assuming total time is in the fifth cell
+                    const totalTimeCell = currentRow.cells[4];
 
-                    const totalTime = endDate - startDate;
+                    // Check if both start date and end date cells are not empty
+                    if (startDateCell && startDateCell.textContent.trim() !== '' && endDateCell && endDateCell.textContent.trim() !== '') {
+                        const startDate = new Date(startDateCell.textContent.trim());
+                        const endDate = new Date(endDateCell.textContent.trim());
 
-                    // Update total time cell with the recalculated total time
-                    if (totalTimeCell) {
-                        totalTimeCell.textContent = totalTime + ' ms';
+                        const totalTime = endDate - startDate;
+
+                        // Update total time cell with the recalculated total time
+                        if (totalTimeCell) {
+                            totalTimeCell.textContent = totalTime + ' ms';
+                        }
                     }
+                }
+
+                alert('Total time recomputation completed.');
+            }
+            let isUrlsChecked = false;
+
+
+            // New function to sync time after checking URLs
+            function syncTime() {
+                if (!isUrlsChecked) {
+                    alert('Please check URLs for latency first.');
+                    return;
+                }
+
+                const resultsContainer = document.getElementById('results');
+                const tableRows = resultsContainer.querySelectorAll('table tr');
+
+                // Iterate through rows starting from the second row
+                for (let i = 1; i < tableRows.length - 1; i++) {
+                    const currentRow = tableRows[i];
+                    const nextRow = tableRows[i + 1];
+
+                    const endDateCell = currentRow.cells[3]; // Assuming end date is in the fourth cell
+
+                    // Check if end date cell is not empty
+                    if (endDateCell && endDateCell.textContent.trim() !== '') {
+                        const endDate = new Date(endDateCell.textContent.trim());
+
+                        // Assuming start date is in the third cell of the next row
+                        const nextRowStartDateCell = nextRow.cells[2];
+
+                        // Update start date of the next row with the end date of the current row
+                        if (nextRowStartDateCell) {
+                            nextRowStartDateCell.textContent = endDate.toLocaleString();
+                        }
+                    }
+                }
+
+                /* alert('Time syncing completed.'); */
+            }
+
+            function recomputeTotalTime() {
+                const resultsContainer = document.getElementById('results');
+                const tableRows = resultsContainer.querySelectorAll('table tr');
+
+                // Iterate through rows starting from the second row
+                for (let i = 1; i < tableRows.length; i++) {
+                    const currentRow = tableRows[i];
+                    const startDateCell = currentRow.cells[2]; // Assuming start date is in the third cell
+                    const endDateCell = currentRow.cells[3]; // Assuming end date is in the fourth cell
+                    const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
+
+                    // Check if both start date and end date cells are not empty
+                    if (startDateCell && startDateCell.textContent.trim() !== '' && endDateCell && endDateCell.textContent.trim() !== '') {
+                        const startDate = new Date(startDateCell.textContent.trim());
+                        const endDate = new Date(endDateCell.textContent.trim());
+
+                        const totalTime = endDate - startDate;
+
+                        // Update total time cell with the recalculated total time
+                        if (totalTimeCell) {
+                            totalTimeCell.textContent = totalTime + ' ms';
+                        }
+                    }
+                }
+
+                /* alert('Total time recomputation completed.'); */
+            }
+
+            function convertToSeconds() {
+                const resultsContainer = document.getElementById('results');
+                const tableRows = resultsContainer.querySelectorAll('table tr');
+
+                // Iterate through rows starting from the second row
+                for (let i = 1; i < tableRows.length; i++) {
+                    const currentRow = tableRows[i];
+                    const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
+
+                    // Check if total time cell is not empty
+                    if (totalTimeCell && totalTimeCell.textContent.trim() !== '') {
+                        const totalTimeMilliseconds = parseInt(totalTimeCell.textContent, 10);
+
+                        // Call the conversion function and update the total time cell
+                        if (!isNaN(totalTimeMilliseconds)) {
+                            const totalTimeSeconds = convertMillisecondsToSeconds(totalTimeMilliseconds);
+                            totalTimeCell.textContent = totalTimeSeconds + ' s';
+                        }
+                    }
+                }
+
+                /* alert('Conversion to seconds completed.'); */
+            }
+
+            // Add this function to convert total time to milliseconds
+            function convertToMilliseconds() {
+                const resultsContainer = document.getElementById('results');
+                const tableRows = resultsContainer.querySelectorAll('table tr');
+
+                // Iterate through rows starting from the second row
+                for (let i = 1; i < tableRows.length; i++) {
+                    const currentRow = tableRows[i];
+                    const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
+
+                    // Check if total time cell is not empty
+                    if (totalTimeCell && totalTimeCell.textContent.trim() !== '') {
+                        const totalTimeSeconds = parseFloat(totalTimeCell.textContent);
+                        const totalTimeMilliseconds = totalTimeSeconds * 1000;
+
+                        // Update total time cell with the converted total time to milliseconds
+                        if (!isNaN(totalTimeMilliseconds)) {
+                            totalTimeCell.textContent = totalTimeMilliseconds.toFixed(2) + ' ms';
+                        }
+                    }
+                }
+
+                /* alert('Conversion to milliseconds completed.'); */
+            }
+
+            function convertMillisecondsToSeconds(milliseconds) {
+                return (milliseconds / 1000).toFixed(2); // Convert milliseconds to seconds with two decimal places
+            }
+
+            // Add this function to show the help content
+            function showHelp() {
+                const helpContent = document.getElementById('helpContent');
+
+                if (helpContent) {
+                    // Create a pop-up window
+                    const popup = window.open('', 'Help', 'width=400,height=300,scrollbars=yes,resizable=yes');
+
+                    // Write the help content to the pop-up window
+                    popup.document.write('<html><head><title>Help</title></head><body>');
+                    popup.document.write(helpContent.innerHTML);
+                    popup.document.write('</body></html>');
+                    popup.document.close();
+                } else {
+                    console.error('Error: Unable to find help content');
                 }
             }
 
-            alert('Total time recomputation completed.');
-        }
-        let isUrlsChecked = false;
+            // Attach the showHelp function to the help link click event
+            const helpLink = document.getElementById('helpLink');
 
-
-        // New function to sync time after checking URLs
-        function syncTime() {
-            if (!isUrlsChecked) {
-                alert('Please check URLs for latency first.');
-                return;
-            }
-
-            const resultsContainer = document.getElementById('results');
-            const tableRows = resultsContainer.querySelectorAll('table tr');
-
-            // Iterate through rows starting from the second row
-            for (let i = 1; i < tableRows.length - 1; i++) {
-                const currentRow = tableRows[i];
-                const nextRow = tableRows[i + 1];
-
-                const endDateCell = currentRow.cells[3]; // Assuming end date is in the fourth cell
-
-                // Check if end date cell is not empty
-                if (endDateCell && endDateCell.textContent.trim() !== '') {
-                    const endDate = new Date(endDateCell.textContent.trim());
-
-                    // Assuming start date is in the third cell of the next row
-                    const nextRowStartDateCell = nextRow.cells[2];
-
-                    // Update start date of the next row with the end date of the current row
-                    if (nextRowStartDateCell) {
-                        nextRowStartDateCell.textContent = endDate.toLocaleString();
-                    }
-                }
-            }
-
-            /* alert('Time syncing completed.'); */
-        }
-
-        function recomputeTotalTime() {
-            const resultsContainer = document.getElementById('results');
-            const tableRows = resultsContainer.querySelectorAll('table tr');
-
-            // Iterate through rows starting from the second row
-            for (let i = 1; i < tableRows.length; i++) {
-                const currentRow = tableRows[i];
-                const startDateCell = currentRow.cells[2]; // Assuming start date is in the third cell
-                const endDateCell = currentRow.cells[3]; // Assuming end date is in the fourth cell
-                const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
-
-                // Check if both start date and end date cells are not empty
-                if (startDateCell && startDateCell.textContent.trim() !== '' && endDateCell && endDateCell.textContent.trim() !== '') {
-                    const startDate = new Date(startDateCell.textContent.trim());
-                    const endDate = new Date(endDateCell.textContent.trim());
-
-                    const totalTime = endDate - startDate;
-
-                    // Update total time cell with the recalculated total time
-                    if (totalTimeCell) {
-                        totalTimeCell.textContent = totalTime + ' ms';
-                    }
-                }
-            }
-
-            /* alert('Total time recomputation completed.'); */
-        }
-
-        function convertToSeconds() {
-            const resultsContainer = document.getElementById('results');
-            const tableRows = resultsContainer.querySelectorAll('table tr');
-
-            // Iterate through rows starting from the second row
-            for (let i = 1; i < tableRows.length; i++) {
-                const currentRow = tableRows[i];
-                const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
-
-                // Check if total time cell is not empty
-                if (totalTimeCell && totalTimeCell.textContent.trim() !== '') {
-                    const totalTimeMilliseconds = parseInt(totalTimeCell.textContent, 10);
-
-                    // Call the conversion function and update the total time cell
-                    if (!isNaN(totalTimeMilliseconds)) {
-                        const totalTimeSeconds = convertMillisecondsToSeconds(totalTimeMilliseconds);
-                        totalTimeCell.textContent = totalTimeSeconds + ' s';
-                    }
-                }
-            }
-
-            /* alert('Conversion to seconds completed.'); */
-        }
-
-        // Add this function to convert total time to milliseconds
-        function convertToMilliseconds() {
-            const resultsContainer = document.getElementById('results');
-            const tableRows = resultsContainer.querySelectorAll('table tr');
-
-            // Iterate through rows starting from the second row
-            for (let i = 1; i < tableRows.length; i++) {
-                const currentRow = tableRows[i];
-                const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
-
-                // Check if total time cell is not empty
-                if (totalTimeCell && totalTimeCell.textContent.trim() !== '') {
-                    const totalTimeSeconds = parseFloat(totalTimeCell.textContent);
-                    const totalTimeMilliseconds = totalTimeSeconds * 1000;
-
-                    // Update total time cell with the converted total time to milliseconds
-                    if (!isNaN(totalTimeMilliseconds)) {
-                        totalTimeCell.textContent = totalTimeMilliseconds.toFixed(2) + ' ms';
-                    }
-                }
-            }
-
-            /* alert('Conversion to milliseconds completed.'); */
-        }
-
-        function convertMillisecondsToSeconds(milliseconds) {
-            return (milliseconds / 1000).toFixed(2); // Convert milliseconds to seconds with two decimal places
-        }
-
-        // Add this function to show the help content
-        function showHelp() {
-            const helpContent = document.getElementById('helpContent');
-
-            if (helpContent) {
-                // Create a pop-up window
-                const popup = window.open('', 'Help', 'width=400,height=300,scrollbars=yes,resizable=yes');
-
-                // Write the help content to the pop-up window
-                popup.document.write('<html><head><title>Help</title></head><body>');
-                popup.document.write(helpContent.innerHTML);
-                popup.document.write('</body></html>');
-                popup.document.close();
+            if (helpLink) {
+                helpLink.addEventListener('click', showHelp);
             } else {
-                console.error('Error: Unable to find help content');
+                console.error('Error: Unable to find help link');
             }
-        }
-
-        // Attach the showHelp function to the help link click event
-        const helpLink = document.getElementById('helpLink');
-
-        if (helpLink) {
-            helpLink.addEventListener('click', showHelp);
-        } else {
-            console.error('Error: Unable to find help link');
-        }
 
 
 
 
-        function downloadCsv(data, filename, separator = '|') {
-            const csvContent = "data:text/csv;charset=utf-8," + data.map(row => row.join(separator)).join("\n");
-            const encodedUri = encodeURI(csvContent);
-            const link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", filename);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
+            function downloadCsv(data, filename, separator = '|') {
+                const csvContent = "data:text/csv;charset=utf-8," + data.map(row => row.join(separator)).join("\n");
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", filename);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
 
-        function exportTableToCsv() {
-            const csvData = [];
-            const headers = [];
-            const tableRows = document.querySelectorAll('#results table tr');
+            function exportTableToCsv() {
+                const csvData = [];
+                const headers = [];
+                const tableRows = document.querySelectorAll('#results table tr');
 
-            // Get headers
-            tableRows[0].querySelectorAll('th').forEach(header => {
-                headers.push(header.textContent.trim());
-            });
-            csvData.push(headers);
-
-            // Get data
-            tableRows.forEach(row => {
-                const rowData = [];
-                row.querySelectorAll('td').forEach(cell => {
-                    rowData.push(cell.textContent.trim());
+                // Get headers
+                tableRows[0].querySelectorAll('th').forEach(header => {
+                    headers.push(header.textContent.trim());
                 });
-                csvData.push(rowData);
-            });
+                csvData.push(headers);
 
-            downloadCsv(csvData, "url_latency_results.csv");
-        }
+                // Get data
+                tableRows.forEach(row => {
+                    const rowData = [];
+                    row.querySelectorAll('td').forEach(cell => {
+                        rowData.push(cell.textContent.trim());
+                    });
+                    csvData.push(rowData);
+                });
 
-        function checkLatency() {
-            const corsUrlInput = document.getElementById('corsUrlInput');
-            const corsUrl = corsUrlInput.value.trim();
-
-            const urlsTextArea = document.getElementById('urlsTextArea');
-            const urls = urlsTextArea.value.split('\n').map(url => url.trim()).filter(Boolean);
-
-            if (urls.length === 0) {
-                alert('Please enter at least one URL.');
-                return;
+                downloadCsv(csvData, "url_latency_results.csv");
             }
 
-            const resultsContainer = document.getElementById('results');
-            const completedCounter = document.getElementById('completedCounter');
-            const remainingCounter = document.getElementById('remainingCounter');
-            const totalCounter = document.getElementById('totalCounter');
-            const uniqueHttpCodesCounter = document.getElementById('uniqueHttpCodesCounter');
-            const httpCodeCountsContainer = document.getElementById('httpCodeCountsContainer');
+            function checkLatency() {
+                const corsUrlInput = document.getElementById('corsUrlInput');
+                const corsUrl = corsUrlInput.value.trim();
 
-            if (!resultsContainer || !completedCounter || !remainingCounter || !totalCounter || !uniqueHttpCodesCounter || !httpCodeCountsContainer) {
-                console.error('Error: Unable to find elements');
-                return;
-            }
+                const urlsTextArea = document.getElementById('urlsTextArea');
+                const urls = urlsTextArea.value.split('\n').map(url => url.trim()).filter(Boolean);
 
-            resultsContainer.innerHTML = '';
-            completedCounter.textContent = '0';
-            remainingCounter.textContent = urls.length.toString();
-            totalCounter.textContent = urls.length.toString();
-            uniqueHttpCodesCounter.textContent = '0'; // Initialize the unique HTTP codes counter
-            httpCodeCountsContainer.innerHTML = ''; // Clear previous HTTP code counts
-
-            // Create a table with header
-            const table = document.createElement('table');
-            table.style.borderCollapse = 'collapse';
-            table.style.width = '100%';
-            table.style.borderRadius = '10 px';
-
-            const headerRow = table.createTHead().insertRow();
-            const headers = ['Serial Number', 'URL', 'Start Date', 'End Date', 'Total Time', 'HTTP Code', 'HTTP Code Description'];
-
-            const addHeaderCell = (text) => {
-                const headerCell = document.createElement('th');
-                headerCell.style.border = '1px solid #dddddd';
-                headerCell.style.padding = '8px';
-                headerCell.textContent = text;
-                headerRow.appendChild(headerCell);
-            };
-
-            headers.forEach(addHeaderCell);
-
-            let serialNumber = 1;
-            let completedCount = 0;
-            const uniqueHttpCodes = new Set(); // Set to store unique HTTP codes
-            const httpCodeCounts = {}; // Dictionary to store counts of each HTTP code
-
-            const updateCounters = () => {
-                completedCounter.textContent = completedCount.toString();
-                remainingCounter.textContent = (urls.length - completedCount).toString();
-                totalCounter.textContent = urls.length.toString();
-
-                // Update and display HTTP code counts
-                httpCodeCountsContainer.innerHTML = '<div class="http-code-counts">HTTP Code Counts: ';
-
-                for (const httpCode in httpCodeCounts) {
-                    if (httpCodeCounts.hasOwnProperty(httpCode)) {
-                        const count = httpCodeCounts[httpCode];
-
-                        // Display both HTTP code and count in the same row
-                        httpCodeCountsContainer.innerHTML += `<span class="http-code-count">${httpCode}: ${count}</span>`;
-                    }
+                if (urls.length === 0) {
+                    alert('Please enter at least one URL.');
+                    return;
                 }
 
-                httpCodeCountsContainer.innerHTML += '</div>';
-                uniqueHttpCodesCounter.textContent = uniqueHttpCodes.size.toString(); // Update unique HTTP codes counter
-            };
+                const resultsContainer = document.getElementById('results');
+                const completedCounter = document.getElementById('completedCounter');
+                const remainingCounter = document.getElementById('remainingCounter');
+                const totalCounter = document.getElementById('totalCounter');
+                const uniqueHttpCodesCounter = document.getElementById('uniqueHttpCodesCounter');
+                const httpCodeCountsContainer = document.getElementById('httpCodeCountsContainer');
 
-            urls.forEach(url => {
-                const startDate = new Date(); // Record start date before making the request
+                if (!resultsContainer || !completedCounter || !remainingCounter || !totalCounter || !uniqueHttpCodesCounter || !httpCodeCountsContainer) {
+                    console.error('Error: Unable to find elements');
+                    return;
+                }
 
-                fetch(corsUrl + url)
-                    .then(response => {
-                        const endDate = new Date(); // Record end date after receiving the response
-                        const httpCode = response.status;
-                        const totalTime = endDate - startDate; // Calculate total time
+                resultsContainer.innerHTML = '';
+                completedCounter.textContent = '0';
+                remainingCounter.textContent = urls.length.toString();
+                totalCounter.textContent = urls.length.toString();
+                uniqueHttpCodesCounter.textContent = '0'; // Initialize the unique HTTP codes counter
+                httpCodeCountsContainer.innerHTML = ''; // Clear previous HTTP code counts
 
-                        uniqueHttpCodes.add(httpCode); // Add the HTTP code to the set
+                // Create a table with header
+                const table = document.createElement('table');
+                table.style.borderCollapse = 'collapse';
+                table.style.width = '100%';
+                table.style.borderRadius = '10 px';
 
-                        // Update the count for the encountered HTTP code
-                        httpCodeCounts[httpCode] = (httpCodeCounts[httpCode] || 0) + 1;
+                const headerRow = table.createTHead().insertRow();
+                const headers = ['Serial Number', 'URL', 'Start Date', 'End Date', 'Total Time', 'HTTP Code', 'HTTP Code Description'];
 
-                        const bodyRow = table.insertRow();
+                const addHeaderCell = (text) => {
+                    const headerCell = document.createElement('th');
+                    headerCell.style.border = '1px solid #dddddd';
+                    headerCell.style.padding = '8px';
+                    headerCell.textContent = text;
+                    headerRow.appendChild(headerCell);
+                };
 
-                        const addCell = (data, isUrl = false, isError = false) => {
-                            const cell = bodyRow.insertCell();
-                            cell.style.border = '1px solid #dddddd';
-                            cell.style.textAlign = 'left';
-                            cell.style.padding = '8px';
+                headers.forEach(addHeaderCell);
 
-                            if (isUrl) {
-                                const link = document.createElement('a');
-                                link.href = data;
-                                link.target = '_blank';
-                                link.textContent = data;
-                                cell.appendChild(link);
-                            } else {
+                let serialNumber = 1;
+                let completedCount = 0;
+                const uniqueHttpCodes = new Set(); // Set to store unique HTTP codes
+                const httpCodeCounts = {}; // Dictionary to store counts of each HTTP code
+
+                const updateCounters = () => {
+                    completedCounter.textContent = completedCount.toString();
+                    remainingCounter.textContent = (urls.length - completedCount).toString();
+                    totalCounter.textContent = urls.length.toString();
+
+                    // Update and display HTTP code counts
+                    httpCodeCountsContainer.innerHTML = '<div class="http-code-counts">HTTP Code Counts: ';
+
+                    for (const httpCode in httpCodeCounts) {
+                        if (httpCodeCounts.hasOwnProperty(httpCode)) {
+                            const count = httpCodeCounts[httpCode];
+
+                            // Display both HTTP code and count in the same row
+                            httpCodeCountsContainer.innerHTML += `<span class="http-code-count">${httpCode}: ${count}</span>`;
+                        }
+                    }
+
+                    httpCodeCountsContainer.innerHTML += '</div>';
+                    uniqueHttpCodesCounter.textContent = uniqueHttpCodes.size.toString(); // Update unique HTTP codes counter
+                };
+
+                urls.forEach(url => {
+                    const startDate = new Date(); // Record start date before making the request
+
+                    fetch(corsUrl + url)
+                        .then(response => {
+                            const endDate = new Date(); // Record end date after receiving the response
+                            const httpCode = response.status;
+                            const totalTime = endDate - startDate; // Calculate total time
+
+                            uniqueHttpCodes.add(httpCode); // Add the HTTP code to the set
+
+                            // Update the count for the encountered HTTP code
+                            httpCodeCounts[httpCode] = (httpCodeCounts[httpCode] || 0) + 1;
+
+                            const bodyRow = table.insertRow();
+
+                            const addCell = (data, isUrl = false, isError = false) => {
+                                const cell = bodyRow.insertCell();
+                                cell.style.border = '1px solid #dddddd';
+                                cell.style.textAlign = 'left';
+                                cell.style.padding = '8px';
+
+                                if (isUrl) {
+                                    const link = document.createElement('a');
+                                    link.href = data;
+                                    link.target = '_blank';
+                                    link.textContent = data;
+                                    cell.appendChild(link);
+                                } else {
+                                    cell.textContent = data;
+                                }
+
+                                if (isError) {
+                                    cell.style.backgroundColor = '#FFCCCC';
+                                } else if (httpCode === 404) {
+                                    /* cell.style.backgroundColor = '#FFD700'; */
+                                    cell.style.backgroundColor = '#c77777'
+                                }
+
+                                if (!isUrl) {
+                                    cell.innerHTML = data;
+                                }
+                            };
+
+
+                            const addDescriptionCell = () => {
+                                const descriptionCell = bodyRow.insertCell();
+                                descriptionCell.style.border = '1px solid #dddddd';
+                                descriptionCell.style.textAlign = 'left';
+                                descriptionCell.style.padding = '8px';
+
+                                const description = getHttpCodeDescription(httpCode);
+                                descriptionCell.textContent = description;
+                            };
+
+                            addCell(serialNumber);
+                            addCell(url, true);
+                            addCell(startDate.toLocaleString());
+                            addCell(endDate.toLocaleString());
+                            addCell(totalTime + ' ms');
+                            addCell(httpCode, httpCode !== 200);
+                            addDescriptionCell();
+
+                            serialNumber++;
+                            completedCount++;
+                            updateCounters();
+                        })
+                        .catch(error => {
+                            const bodyRow = table.insertRow();
+                            const addCell = (data) => {
+                                const cell = bodyRow.insertCell();
+                                cell.style.border = '1px solid #dddddd';
+                                cell.style.textAlign = 'left';
+                                cell.style.padding = '8px';
                                 cell.textContent = data;
-                            }
+                            };
 
-                            if (isError) {
-                                cell.style.backgroundColor = '#FFCCCC';
-                            } else if (httpCode === 404) {
-                                /* cell.style.backgroundColor = '#FFD700'; */
-                                cell.style.backgroundColor = '#c77777'
-                            }
+                            const addDescriptionCell = () => {
+                                const descriptionCell = bodyRow.insertCell();
+                                descriptionCell.style.border = '1px solid #dddddd';
+                                descriptionCell.style.textAlign = 'left';
+                                descriptionCell.style.padding = '8px';
+                                descriptionCell.textContent = 'N/A';
+                            };
 
-                            if (!isUrl) {
-                                cell.innerHTML = data;
-                            }
-                        };
+                            addCell(serialNumber);
+                            addCell(url, true);
+                            addCell('N/A');
+                            addCell('N/A');
+                            addCell('N/A');
+                            addCell('Error: ' + error.message, true);
+                            addDescriptionCell();
 
+                            serialNumber++;
+                            updateCounters();
+                        });
 
-                        const addDescriptionCell = () => {
-                            const descriptionCell = bodyRow.insertCell();
-                            descriptionCell.style.border = '1px solid #dddddd';
-                            descriptionCell.style.textAlign = 'left';
-                            descriptionCell.style.padding = '8px';
+                });
 
-                            const description = getHttpCodeDescription(httpCode);
-                            descriptionCell.textContent = description;
-                        };
+                resultsContainer.appendChild(table);
 
-                        addCell(serialNumber);
-                        addCell(url, true);
-                        addCell(startDate.toLocaleString());
-                        addCell(endDate.toLocaleString());
-                        addCell(totalTime + ' ms');
-                        addCell(httpCode, httpCode !== 200);
-                        addDescriptionCell();
+                isUrlsChecked = true;
+                /* syncTime();
+                recomputeTotalTime(); */
 
-                        serialNumber++;
-                        completedCount++;
-                        updateCounters();
-                    })
-                    .catch(error => {
-                        const bodyRow = table.insertRow();
-                        const addCell = (data) => {
-                            const cell = bodyRow.insertCell();
-                            cell.style.border = '1px solid #dddddd';
-                            cell.style.textAlign = 'left';
-                            cell.style.padding = '8px';
-                            cell.textContent = data;
-                        };
-
-                        const addDescriptionCell = () => {
-                            const descriptionCell = bodyRow.insertCell();
-                            descriptionCell.style.border = '1px solid #dddddd';
-                            descriptionCell.style.textAlign = 'left';
-                            descriptionCell.style.padding = '8px';
-                            descriptionCell.textContent = 'N/A';
-                        };
-
-                        addCell(serialNumber);
-                        addCell(url, true);
-                        addCell('N/A');
-                        addCell('N/A');
-                        addCell('N/A');
-                        addCell('Error: ' + error.message, true);
-                        addDescriptionCell();
-
-                        serialNumber++;
-                        updateCounters();
-                    });
-
-            });
-
-            resultsContainer.appendChild(table);
-
-            isUrlsChecked = true;
-            /* syncTime();
-            recomputeTotalTime(); */
-
-        }
-
-        function getHttpCodeDescription(httpCode) {
-            switch (httpCode) {
-                case 200:
-                    return 'OK - The request was successful.';
-                case 400:
-                    return 'Bad Request.';
-                case 401:
-                    return 'Unauthorized.';
-                case 403:
-                    return 'Forbidden';
-                case 404:
-                    return 'Not Found - The requested resource could not be found on the server.';
-                case 500:
-                    return 'Internal Server Error - The server encountered an unexpected condition that prevented it from fulfilling the request.';
-                case 503:
-                    return 'Service Unavailable';
-                default:
-                    return 'Description not available.';
             }
-        }
 
-    </script>
+            function getHttpCodeDescription(httpCode) {
+                switch (httpCode) {
+                    case 200:
+                        return 'OK - The request was successful.';
+                    case 400:
+                        return 'Bad Request.';
+                    case 401:
+                        return 'Unauthorized.';
+                    case 403:
+                        return 'Forbidden';
+                    case 404:
+                        return 'Not Found - The requested resource could not be found on the server.';
+                    case 500:
+                        return 'Internal Server Error - The server encountered an unexpected condition that prevented it from fulfilling the request.';
+                    case 503:
+                        return 'Service Unavailable';
+                    default:
+                        return 'Description not available.';
+                }
+            }
+
+        </script>
 </body>
+<!-- Add this at the end of your HTML body -->
+<footer>
+    <hr>
+    <p style="text-align: center;">&copy; 2023 Your Application. All rights reserved.</p>
+</footer>
+</body>
+</div>
 
 </html>
