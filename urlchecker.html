@@ -7,53 +7,59 @@
     <title>Application URL Checker</title>
 
     <style>
+        body {
+            display: flex;
+            margin: 10px;
+            padding: 0;
+            transition: margin-left 0.5s; /* Transition effect for the content when the menu is hidden/unhidden */
+        }
+
+        .topmargin
+        {
+            padding-top: 10px 20px 0 0
+        }
         .menu {
-            margin-top: 10px;
-            height: 120vh;
-            /* 100% of the viewport height */
+            margin: 0px;
+            height: 100vh;
             background-color: #2196F3;
-            /* Blue background */
             color: white;
-            /* White text color */
-            padding: 20px;
+            /* padding: 10px; */
             box-sizing: border-box;
             position: fixed;
-            /* Fixed position to stay on the screen while scrolling */
             display: flex;
             flex-direction: column;
-            /* justify-content: center; */
+            justify-content: left;
             align-items: left;
-            border-radius: 10px;
-            border-color: #0a0a0a;
-            border-right: 12px solid rgb(73, 12, 12);
-            transition: width 0.5s;
-            /* Transition effect for hiding/unhiding the menu */
+            border-right: 12px solid rgb(43, 6, 6);
+            transition: width 0.5s; /* Transition effect for hiding/unhiding the menu */
             overflow: hidden;
-            /* width: 300px; */
-            /* Initial width of the menu */
+            width: 200px; /* Initial width of the menu */
+            /* margin-top: 20px; Added margin-top */
+            border-radius: 10px;
+            font-size: 15px;
+            width: 230px;
+            
+            
         }
 
         .menu a {
-            /* margin-top: 10px; */
             display: flex;
-            align-items: left;
+            align-items: center;
             padding: 10px;
             text-decoration: none;
             color: white;
             font-weight: bold;
             border-radius: 5px;
             transition: background-color 0.3s;
-            /* margin-top: 50px; */
+            margin-top: 11px; /* Adjusted margin-top */
         }
 
         .menu a:hover {
             background-color: #1565C0;
-            /* Darker blue on hover */
         }
 
         .menu a:not(:last-child) {
             border-bottom: 2px solid white;
-            /* White separator line between items */
         }
 
         .menu .icon {
@@ -64,23 +70,23 @@
             flex: 1;
             padding: 20px;
             background-color: #f0f0f0;
-            margin-left: 250px;
-            /* Adjusted margin to leave space for the menu */
+            margin-left: 230px; /* Adjusted margin to leave space for the menu */
+            border-radius: 10px;
         }
 
-        body {
-            display: flex;
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f0f0f0;
-            zoom: 80%;
-            /* margin: 0;
-            padding: 0; */
+        /* Add a class to hide the menu */
+        .menu-hidden .menu {
+            width: 0;
+        }
+
+        /* Add a class to adjust content margin when the menu is hidden */
+        .menu-hidden .content {
+            margin-left: 10px; /* Adjusted margin to leave space for the menu */
         }
 
         .container {
             max-width: 500px;
-            margin: 0 auto;
+            margin: 50px auto;
             padding: 20px;
             background-color: #fff;
             border: 1px solid #ddd;
@@ -223,29 +229,23 @@
             margin-top: 10px;
         }
 
-        /* Add a class to hide the menu */
-        .menu-hidden .menu {
-            width: 0;
-        }
 
-        /* Add a class to adjust content margin when the menu is hidden */
-        .menu-hidden .content {
-            margin-left: 0;
-        }
     </style>
 </head>
 
 <body>
 
-    <div class="menu">
-        <a href="#" onclick="checkLatency()">1) Check URLs</a>
-        <a href="#" onclick="syncTime()">2) Sync Time</a>
-        <a href="#" onclick="recomputeTotalTime()">3) Recompute Total Time</a>
-        <a href="#" onclick="convertToSeconds()">4) Convert to Seconds</a>
-        <a href="#" onclick="updateTimeMetrics()">5) Update Time Metrics</a>
-        <a href="#" onclick="exportTableToCsv()">6) Export as CSV</a>
+    <div class="topmargin" id="tmargin">
+    <div class="menu" id="menu">
+        <a href="#" onclick="checkLatency()"><span class="icon">🌐</span>Check URLs</a>
+        <a href="#" onclick="syncTime()"><span class="icon">🔄</span>Sync Time</a>
+        <a href="#" onclick="recomputeTotalTime()"><span class="icon">🔄</span>Recompute Total Time</a>
+        <a href="#" onclick="convertToSeconds()"><span class="icon">⏱️</span>Convert to Seconds</a>
+        <!-- <a href="#" onclick="updateTimeMetrics()"><span class="icon">🔄</span>Update Time Metrics</a> -->
+        <a href="#" onclick="exportTableToCsv()"><span class="icon">📄</span>Export as CSV</a>
+        <!-- <button onclick="toggleMenu()">Toggle Menu</button> -->
     </div>
-
+</div>
     <div class="content">
         <!-- Your existing content goes here -->
         <hr>
