@@ -371,7 +371,12 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
         https://www.google.com
     </textarea>
 
-    <button onclick="checkLatency()">Check URLs</button>
+    <button onclick="checkLatency();recomputeTotalTime();recomputeTotalTime();">Check URLs</button>
+    <button onclick="syncTime()">SyncUp Time</button> <!-- New Sync Time button -->
+    <button onclick="recomputeTotalTime()">ReCompute Total Time</button> <!-- New Recompute Total Time button -->
+    <button onclick="convertToSeconds()">Show TotalTime in Secs</button> <!-- New Convert to Seconds button -->
+    <button onclick="convertToMilliseconds()">Show TotalTime in Millisecs</button>
+    <!-- <button onclick="updateTimeMetrics()">Update Time Metrics</button> -->
 
 
     <div class="counters">
@@ -393,6 +398,160 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
     <div id="results"></div>
 
     <script>
+
+        function updateTimeMetrics() {
+            if (!isUrlsChecked) {
+                alert('Please check URLs for latency first.');
+                return;
+            }
+
+            const resultsContainer = document.getElementById('results');
+            const tableRows = resultsContainer.querySelectorAll('table tr');
+
+            // Iterate through rows starting from the second row
+            for (let i = 1; i < tableRows.length; i++) {
+                const currentRow = tableRows[i];
+
+                // Assuming start date is in the third cell
+                const startDateCell = currentRow.cells[2];
+                // Assuming end date is in the fourth cell
+                const endDateCell = currentRow.cells[3];
+                // Assuming total time is in the fifth cell
+                const totalTimeCell = currentRow.cells[4];
+
+                // Check if both start date and end date cells are not empty
+                if (startDateCell && startDateCell.textContent.trim() !== '' && endDateCell && endDateCell.textContent.trim() !== '') {
+                    const startDate = new Date(startDateCell.textContent.trim());
+                    const endDate = new Date(endDateCell.textContent.trim());
+
+                    const totalTime = endDate - startDate;
+
+                    // Update total time cell with the recalculated total time
+                    if (totalTimeCell) {
+                        totalTimeCell.textContent = totalTime + ' ms';
+                    }
+                }
+            }
+
+            alert('Total time recomputation completed.');
+        }
+        let isUrlsChecked = false;
+
+
+        // New function to sync time after checking URLs
+        function syncTime() {
+            if (!isUrlsChecked) {
+                alert('Please check URLs for latency first.');
+                return;
+            }
+
+            const resultsContainer = document.getElementById('results');
+            const tableRows = resultsContainer.querySelectorAll('table tr');
+
+            // Iterate through rows starting from the second row
+            for (let i = 1; i < tableRows.length - 1; i++) {
+                const currentRow = tableRows[i];
+                const nextRow = tableRows[i + 1];
+
+                const endDateCell = currentRow.cells[3]; // Assuming end date is in the fourth cell
+
+                // Check if end date cell is not empty
+                if (endDateCell && endDateCell.textContent.trim() !== '') {
+                    const endDate = new Date(endDateCell.textContent.trim());
+
+                    // Assuming start date is in the third cell of the next row
+                    const nextRowStartDateCell = nextRow.cells[2];
+
+                    // Update start date of the next row with the end date of the current row
+                    if (nextRowStartDateCell) {
+                        nextRowStartDateCell.textContent = endDate.toLocaleString();
+                    }
+                }
+            }
+
+            /* alert('Time syncing completed.'); */
+        }
+
+        function recomputeTotalTime() {
+            const resultsContainer = document.getElementById('results');
+            const tableRows = resultsContainer.querySelectorAll('table tr');
+
+            // Iterate through rows starting from the second row
+            for (let i = 1; i < tableRows.length; i++) {
+                const currentRow = tableRows[i];
+                const startDateCell = currentRow.cells[2]; // Assuming start date is in the third cell
+                const endDateCell = currentRow.cells[3]; // Assuming end date is in the fourth cell
+                const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
+
+                // Check if both start date and end date cells are not empty
+                if (startDateCell && startDateCell.textContent.trim() !== '' && endDateCell && endDateCell.textContent.trim() !== '') {
+                    const startDate = new Date(startDateCell.textContent.trim());
+                    const endDate = new Date(endDateCell.textContent.trim());
+
+                    const totalTime = endDate - startDate;
+
+                    // Update total time cell with the recalculated total time
+                    if (totalTimeCell) {
+                        totalTimeCell.textContent = totalTime + ' ms';
+                    }
+                }
+            }
+
+            /* alert('Total time recomputation completed.'); */
+        }
+
+        function convertToSeconds() {
+            const resultsContainer = document.getElementById('results');
+            const tableRows = resultsContainer.querySelectorAll('table tr');
+
+            // Iterate through rows starting from the second row
+            for (let i = 1; i < tableRows.length; i++) {
+                const currentRow = tableRows[i];
+                const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
+
+                // Check if total time cell is not empty
+                if (totalTimeCell && totalTimeCell.textContent.trim() !== '') {
+                    const totalTimeMilliseconds = parseInt(totalTimeCell.textContent, 10);
+
+                    // Call the conversion function and update the total time cell
+                    if (!isNaN(totalTimeMilliseconds)) {
+                        const totalTimeSeconds = convertMillisecondsToSeconds(totalTimeMilliseconds);
+                        totalTimeCell.textContent = totalTimeSeconds + ' s';
+                    }
+                }
+            }
+
+            /* alert('Conversion to seconds completed.'); */
+        }
+
+        // Add this function to convert total time to milliseconds
+        function convertToMilliseconds() {
+            const resultsContainer = document.getElementById('results');
+            const tableRows = resultsContainer.querySelectorAll('table tr');
+
+            // Iterate through rows starting from the second row
+            for (let i = 1; i < tableRows.length; i++) {
+                const currentRow = tableRows[i];
+                const totalTimeCell = currentRow.cells[4]; // Assuming total time is in the fifth cell
+
+                // Check if total time cell is not empty
+                if (totalTimeCell && totalTimeCell.textContent.trim() !== '') {
+                    const totalTimeSeconds = parseFloat(totalTimeCell.textContent);
+                    const totalTimeMilliseconds = totalTimeSeconds * 1000;
+
+                    // Update total time cell with the converted total time to milliseconds
+                    if (!isNaN(totalTimeMilliseconds)) {
+                        totalTimeCell.textContent = totalTimeMilliseconds.toFixed(2) + ' ms';
+                    }
+                }
+            }
+
+            /* alert('Conversion to milliseconds completed.'); */
+        }
+
+        function convertMillisecondsToSeconds(milliseconds) {
+            return (milliseconds / 1000).toFixed(2); // Convert milliseconds to seconds with two decimal places
+        }
 
         // Add this function to show the help content
         function showHelp() {
@@ -420,6 +579,8 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
         } else {
             console.error('Error: Unable to find help link');
         }
+
+
 
 
         function downloadCsv(data, filename, separator = '|') {
@@ -576,38 +737,6 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
                             }
                         };
 
-                        /* const addCell = (data, isUrl = false, isError = false) => {
-                            const cell = bodyRow.insertCell();
-                            cell.style.border = '1px solid #dddddd';
-                            cell.style.textAlign = 'left';
-                            cell.style.padding = '8px';
-
-                            if (isUrl) {
-                                const link = document.createElement('a');
-                                link.href = data;
-                                link.target = '_blank';
-                                link.textContent = data;
-                                cell.appendChild(link);
-                            } else {
-                                cell.textContent = data;
-                            }
-
-                            if (isError) {
-                                cell.style.backgroundColor = '#FFCCCC';
-                            } else if (!isUrl && isError) {
-                                // If it's an error and not a URL, set background color
-                                cell.style.backgroundColor = '#FFCCCC';
-                            } else if (!isUrl && data === 404) {
-                                // If it's not a URL and the HTTP code is 404, set background color
-                                cell.style.backgroundColor = '#FFD700';
-                            }
-
-                            // Remove the hyperlink for HTTP code column
-                            if (!isUrl && !isError) {
-                                cell.innerHTML = data;
-                            }
-                        }; */
-
 
                         const addDescriptionCell = () => {
                             const descriptionCell = bodyRow.insertCell();
@@ -660,9 +789,15 @@ margin-left:.5in;line-height:normal'><span style='font-family:"Courier New"'>}</
                         serialNumber++;
                         updateCounters();
                     });
+
             });
 
             resultsContainer.appendChild(table);
+
+            isUrlsChecked = true;
+            /* syncTime();
+            recomputeTotalTime(); */
+
         }
 
         function getHttpCodeDescription(httpCode) {
