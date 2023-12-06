@@ -262,8 +262,8 @@
     <div class="topmargin" id="tmargin">
         <div class="menu" id="menu">
             <a href="#" onclick="checkLatency()"><span class="icon">🌐</span>Check URLs</a>
-            <a href="#" onclick="syncTime()"><span class="icon">🔄</span>Sync Time</a>
-            <a href="#" onclick="recomputeTotalTime()"><span class="icon">🔄</span>Recompute Total Time</a>
+           <!-- <a href="#" onclick="syncTime()"><span class="icon">🔄</span>Sync Time</a>
+            <a href="#" onclick="recomputeTotalTime()"><span class="icon">🔄</span>Recompute Total Time</a> -->
             <a href="#" onclick="convertToSeconds()"><span class="icon">⏱️</span>Convert to Seconds</a>
             <!-- <a href="#" onclick="updateTimeMetrics()"><span class="icon">🔄</span>Update Time Metrics</a> -->
             <a href="#" onclick="exportTableToCsv()"><span class="icon">📄</span>Export as CSV</a>
@@ -549,7 +549,7 @@
                 downloadCsv(csvData, "url_checker_results.csv");
             }
 
-            function checkLatency() {
+            async function checkLatency() {
                 const corsUrlInput = document.getElementById('corsUrlInput');
                 const corsUrl = corsUrlInput.value.trim();
 
@@ -577,10 +577,9 @@
                 completedCounter.textContent = '0';
                 remainingCounter.textContent = urls.length.toString();
                 totalCounter.textContent = urls.length.toString();
-                uniqueHttpCodesCounter.textContent = '0'; // Initialize the unique HTTP codes counter
-                httpCodeCountsContainer.innerHTML = ''; // Clear previous HTTP code counts
+                uniqueHttpCodesCounter.textContent = '0';
+                httpCodeCountsContainer.innerHTML = '';
 
-                // Create a table with header
                 const table = document.createElement('table');
                 table.style.borderCollapse = 'collapse';
                 table.style.width = '100%';
@@ -601,139 +600,114 @@
 
                 let serialNumber = 1;
                 let completedCount = 0;
-                const uniqueHttpCodes = new Set(); // Set to store unique HTTP codes
-                const httpCodeCounts = {}; // Dictionary to store counts of each HTTP code
+                const uniqueHttpCodes = new Set();
+                const httpCodeCounts = {};
 
                 const updateCounters = () => {
                     completedCounter.textContent = completedCount.toString();
                     remainingCounter.textContent = (urls.length - completedCount).toString();
                     totalCounter.textContent = urls.length.toString();
 
-                    // Update and display HTTP code counts
                     httpCodeCountsContainer.innerHTML = '<div class="http-code-counts">HTTP Code Counts: ';
 
                     for (const httpCode in httpCodeCounts) {
                         if (httpCodeCounts.hasOwnProperty(httpCode)) {
                             const count = httpCodeCounts[httpCode];
-
-                            // Display both HTTP code and count in the same row
                             httpCodeCountsContainer.innerHTML += `<span class="http-code-count">${httpCode}: ${count}</span>`;
                         }
                     }
 
                     httpCodeCountsContainer.innerHTML += '</div>';
-                    uniqueHttpCodesCounter.textContent = uniqueHttpCodes.size.toString(); // Update unique HTTP codes counter
+                    uniqueHttpCodesCounter.textContent = uniqueHttpCodes.size.toString();
                 };
 
-                urls.forEach(url => {
-                    const startDate = new Date(); // Record start date before making the request
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 200000); // 5 seconds timeout
+                async function processUrl(url) {
+                    const startDate = new Date();
 
-                    fetch(corsUrl + url, { signal: controller.signal })
-                        .then(response => {
-                            clearTimeout(timeoutId);
-                            const endDate = new Date(); // Record end date after receiving the response
-                            const httpCode = response.status;
-                            const totalTime = endDate - startDate; // Calculate total time
+                    try {
+                        const response = await fetch(corsUrl + url);
+                        const endDate = new Date();
+                        const httpCode = response.status;
 
-                            uniqueHttpCodes.add(httpCode); // Add the HTTP code to the set
+                        uniqueHttpCodes.add(httpCode);
+                        httpCodeCounts[httpCode] = (httpCodeCounts[httpCode] || 0) + 1;
 
-                            // Update the count for the encountered HTTP code
-                            httpCodeCounts[httpCode] = (httpCodeCounts[httpCode] || 0) + 1;
+                        const bodyRow = table.insertRow();
+                        const addCell = (data, isUrl = false, isError = false) => {
+                            const cell = bodyRow.insertCell();
+                            cell.style.border = '1px solid #dddddd';
+                            cell.style.textAlign = 'left';
+                            cell.style.padding = '8px';
 
-                            const bodyRow = table.insertRow();
-
-                            const addCell = (data, isUrl = false, isError = false) => {
-                                const cell = bodyRow.insertCell();
-                                cell.style.border = '1px solid #dddddd';
-                                cell.style.textAlign = 'left';
-                                cell.style.padding = '8px';
-
-                                if (isUrl) {
-                                    const link = document.createElement('a');
-                                    link.href = data;
-                                    link.target = '_blank';
-                                    link.textContent = data;
-                                    cell.appendChild(link);
-                                } else {
-                                    cell.textContent = data;
-                                }
-
-                                if (isError) {
-                                    cell.style.backgroundColor = '#FFCCCC';
-                                } else if (httpCode === 404) {
-                                    /* cell.style.backgroundColor = '#FFD700'; */
-                                    cell.style.backgroundColor = '#c77777'
-                                }
-
-                                if (!isUrl) {
-                                    cell.innerHTML = data;
-                                }
-                            };
-
-
-                            const addDescriptionCell = () => {
-                                const descriptionCell = bodyRow.insertCell();
-                                descriptionCell.style.border = '1px solid #dddddd';
-                                descriptionCell.style.textAlign = 'left';
-                                descriptionCell.style.padding = '8px';
-
-                                const description = getHttpCodeDescription(httpCode);
-                                descriptionCell.textContent = description;
-                            };
-
-                            addCell(serialNumber);
-                            addCell(url, true);
-                            addCell(startDate.toLocaleString());
-                            addCell(endDate.toLocaleString());
-                            addCell(totalTime + ' ms');
-                            addCell(httpCode, httpCode !== 200);
-                            addDescriptionCell();
-
-                            serialNumber++;
-                            completedCount++;
-                            updateCounters();
-                        })
-                        .catch(error => {
-                            clearTimeout(timeoutId);
-                            const bodyRow = table.insertRow();
-                            const addCell = (data) => {
-                                const cell = bodyRow.insertCell();
-                                cell.style.border = '1px solid #dddddd';
-                                cell.style.textAlign = 'left';
-                                cell.style.padding = '8px';
+                            if (isUrl) {
+                                const link = document.createElement('a');
+                                link.href = data;
+                                link.target = '_blank';
+                                link.textContent = data;
+                                cell.appendChild(link);
+                            } else {
                                 cell.textContent = data;
-                            };
+                            }
 
-                            const addDescriptionCell = () => {
-                                const descriptionCell = bodyRow.insertCell();
-                                descriptionCell.style.border = '1px solid #dddddd';
-                                descriptionCell.style.textAlign = 'left';
-                                descriptionCell.style.padding = '8px';
-                                descriptionCell.textContent = 'N/A';
-                            };
+                            if (isError) {
+                                cell.style.backgroundColor = '#FFCCCC';
+                            } else if (httpCode === 404) {
+                                cell.style.backgroundColor = '#c77777';
+                            }
+                        };
 
-                            addCell(serialNumber);
-                            addCell(url, true);
-                            addCell('N/A');
-                            addCell('N/A');
-                            addCell('N/A');
-                            addCell('Error: ' + error.message, true);
-                            addDescriptionCell();
+                        addCell(serialNumber);
+                        addCell(url, true);
+                        addCell(startDate.toLocaleString());
+                        addCell(endDate.toLocaleString());
+                        addCell(endDate - startDate + ' ms');
+                        addCell(httpCode, httpCode !== 200);
+                        addDescriptionCell(httpCode);
 
-                            serialNumber++;
-                            updateCounters();
-                        });
+                        serialNumber++;
+                        completedCount++;
+                        updateCounters();
+                    } catch (error) {
+                        const bodyRow = table.insertRow();
+                        const addCell = (data) => {
+                            const cell = bodyRow.insertCell();
+                            cell.style.border = '1px solid #dddddd';
+                            cell.style.textAlign = 'left';
+                            cell.style.padding = '8px';
+                            cell.textContent = data;
+                        };
 
-                });
+                        addCell(serialNumber);
+                        addCell(url, true);
+                        addCell('N/A');
+                        addCell('N/A');
+                        addCell('N/A');
+                        addCell('Error: ' + error.message, true);
+                        addDescriptionCell();
 
+                        serialNumber++;
+                        updateCounters();
+                    }
+                }
+
+                async function processUrlsSequentially() {
+                    for (const url of urls) {
+                        await processUrl(url);
+                    }
+                }
+
+                processUrlsSequentially();
                 resultsContainer.appendChild(table);
+            }
 
-                isUrlsChecked = true;
-                /* syncTime();
-                recomputeTotalTime(); */
+            async function addDescriptionCell(httpCode) {
+                const descriptionCell = bodyRow.insertCell();
+                descriptionCell.style.border = '1px solid #dddddd';
+                descriptionCell.style.textAlign = 'left';
+                descriptionCell.style.padding = '8px';
 
+                const description = await getHttpCodeDescription(httpCode);
+                descriptionCell.textContent = description;
             }
 
             function getHttpCodeDescription(httpCode) {
