@@ -627,9 +627,12 @@
 
                 urls.forEach(url => {
                     const startDate = new Date(); // Record start date before making the request
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 200000); // 5 seconds timeout
 
-                    fetch(corsUrl + url)
+                    fetch(corsUrl + url, { signal: controller.signal })
                         .then(response => {
+                            clearTimeout(timeoutId);
                             const endDate = new Date(); // Record end date after receiving the response
                             const httpCode = response.status;
                             const totalTime = endDate - startDate; // Calculate total time
@@ -693,6 +696,7 @@
                             updateCounters();
                         })
                         .catch(error => {
+                            clearTimeout(timeoutId);
                             const bodyRow = table.insertRow();
                             const addCell = (data) => {
                                 const cell = bodyRow.insertCell();
@@ -753,7 +757,7 @@
                 }
             }
 
-            
+
 
         </script>
 
